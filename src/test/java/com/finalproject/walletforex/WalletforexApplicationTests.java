@@ -1,4 +1,4 @@
-package com.final.walletforex;
+package com.finalproject.walletforex;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

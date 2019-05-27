@@ -1,5 +1,4 @@
-package com.final.walletforex;
-
+package com.finalproject.walletforex;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
