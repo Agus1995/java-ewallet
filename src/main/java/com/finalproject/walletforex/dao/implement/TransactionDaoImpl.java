@@ -9,10 +9,12 @@ import com.finalproject.walletforex.model.Account;
 import com.finalproject.walletforex.model.Transaction;
 import com.finalproject.walletforex.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class TransactionDaoImpl extends Throwable implements TransactionDao {
+@Service
+public class TransactionDaoImpl implements TransactionDao {
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -38,7 +40,7 @@ public class TransactionDaoImpl extends Throwable implements TransactionDao {
 
     @Override
     public List<Transaction> getList(String accNumber) {
-        List<Transaction> transaction = transactionRepository.findByAccCreditOrAccDebet(accNumber);
+        List<Transaction> transaction = transactionRepository.findByAccCreditOrAccDebet(accNumber, accNumber);
         if (transaction.isEmpty()){
             return null;
         }

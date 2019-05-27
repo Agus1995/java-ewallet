@@ -5,7 +5,11 @@ import com.finalproject.walletforex.dto.WalletDto;
 import com.finalproject.walletforex.model.Wallet;
 import com.finalproject.walletforex.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class WalletDaoImpl implements WalletDao {
     @Autowired
     private WalletRepository walletRepository;
@@ -18,9 +22,9 @@ public class WalletDaoImpl implements WalletDao {
     }
 
     @Override
-    public Wallet findByCif(String cif) {
-        Wallet wallet = walletRepository.findByCustomer_Cif(cif);
-        if (wallet==null){
+    public List<Wallet> findByCif(String cif) {
+        List<Wallet> wallet = walletRepository.findByCustomer_Cif(cif);
+        if (wallet.isEmpty()){
             return null;
         }
         return wallet;

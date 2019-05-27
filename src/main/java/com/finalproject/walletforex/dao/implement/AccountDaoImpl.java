@@ -5,9 +5,15 @@ import com.finalproject.walletforex.dto.AccountDto;
 import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.model.Account;
 import com.finalproject.walletforex.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class AccountDaoImpl implements AccountDao {
 
+    @Autowired
     private AccountRepository accountRepository;
 
     @Override
@@ -18,8 +24,8 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public Account findByCif(String cif) {
-        Account account = accountRepository.findByCustomer_Cif(cif);
+    public List<Account> findByCif(String cif) {
+        List<Account> account = accountRepository.findByCustomer_Cif(cif);
         if (account!=null){
             return account;
         }

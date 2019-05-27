@@ -1,18 +1,25 @@
 package com.finalproject.walletforex.dao.implement;
 
+import com.finalproject.walletforex.dao.CustomerDao;
 import com.finalproject.walletforex.dao.WalletAccountDao;
 import com.finalproject.walletforex.dto.WalletAccountDto;
+import com.finalproject.walletforex.model.Customer;
 import com.finalproject.walletforex.model.WalletAccount;
 import com.finalproject.walletforex.repository.WalletAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class WalletAccountDaoImpl implements WalletAccountDao {
 
     @Autowired
-    WalletAccountRepository walletAccountRepository;
+    private WalletAccountRepository walletAccountRepository;
+
+    @Autowired
+    private CustomerDao customerDao;
 
     @Override
     public WalletAccount register(WalletAccountDto dto) {
@@ -23,7 +30,8 @@ public class WalletAccountDaoImpl implements WalletAccountDao {
     @Override
     public List<WalletAccount> getRegistered(String cif) {
         List<WalletAccount> walletAccounts = new ArrayList<>();
-        walletAccounts = walletAccountRepository.findByAccountCustomer_Cif(cif);
+        Customer customer = customerDao.findById(cif);
+        walletAccounts = walletAccountRepository.findByAccountCustomer(customer);
         if (walletAccounts.isEmpty()){
             return null;
         }

@@ -7,7 +7,9 @@ import com.finalproject.walletforex.exception.UserAlreadyException;
 import com.finalproject.walletforex.model.Customer;
 import com.finalproject.walletforex.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CustomerDaoImpl implements CustomerDao {
     @Autowired
     private CustomerRepository customerRepository;
@@ -33,6 +35,12 @@ public class CustomerDaoImpl implements CustomerDao {
         }else {
             throw new InvalidUsernameOrPasswordException(03, "Invalid Username or Password");
         }
+    }
+
+    @Override
+    public Customer findById(String id) {
+        Customer customer = customerRepository.findById(id).orElse(null);
+        return customer;
     }
 
 
