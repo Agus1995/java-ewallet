@@ -42,6 +42,15 @@ public class AccountDaoImpl implements AccountDao {
         return account1;
     }
 
+    @Override
+    public Account findById(String id) throws AccountNotFoundException {
+        Account account = accountRepository.findById(id).orElse(null);
+        if (account == null){
+            throw new AccountNotFoundException(02, String.format("Account %s not found", id));
+        }
+        return account;
+    }
+
     private Account setAccount(AccountDto dto){
         Account account = new Account();
         account.setAccountNumber(dto.getAccountNumber());

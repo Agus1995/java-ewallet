@@ -8,4 +8,5 @@ public interface AccountDao {
     Account addAccount(AccountDto dto);
     Account findByCif(String cif);
     Account updateBalance(Account account) throws AccountNotFoundException;
+    Account findById(String id) throws AccountNotFoundException;
 }
