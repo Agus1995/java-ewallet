@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TransactionBeans {
     @Bean
-    public TransactionDao transactionDao() throws TransactionDaoImpl {
-        throw new TransactionDaoImpl();
+    public TransactionDao transactionDao() {
+        return new TransactionDaoImpl();
     }
 }
