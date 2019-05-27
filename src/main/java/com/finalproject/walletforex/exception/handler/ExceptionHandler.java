@@ -1,10 +1,7 @@
 package com.finalproject.walletforex.exception.handler;
 
 import com.finalproject.walletforex.dto.CommonResponse;
-import com.finalproject.walletforex.exception.AccountNotFoundException;
-import com.finalproject.walletforex.exception.InvalidUsernameOrPasswordException;
-import com.finalproject.walletforex.exception.UserAlreadyException;
-import com.finalproject.walletforex.exception.WalletNotFoundException;
+import com.finalproject.walletforex.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -45,6 +42,15 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(value = WalletNotFoundException.class)
     public ResponseEntity<CommonResponse> resp(WalletNotFoundException e){
+//        LOGGER.error(e.getMesage());
+//        LOGGER.warn(e.getMesage());
+//        LOGGER.info(e.getMesage());
+//        LOGGER.debug(e.getMesage());
+        return new ResponseEntity<CommonResponse>(new CommonResponse(e.getCode(), e.getMessage()), HttpStatus.OK);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = BalanceNotEnoughException.class)
+    public ResponseEntity<CommonResponse> resp(BalanceNotEnoughException e){
 //        LOGGER.error(e.getMesage());
 //        LOGGER.warn(e.getMesage());
 //        LOGGER.info(e.getMesage());
