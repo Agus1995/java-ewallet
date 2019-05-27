@@ -1,20 +1,43 @@
 package com.finalproject.walletforex.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table (name = "tb_wallet_taccount")
+@Table (name = "tb_wallet_account")
 public class WalletAccount {
     @Id
-    @Column(name = "wallet_accid")
-    private String walletAccid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column(name = "accNumber")
-    private String accNumber;
+    @ManyToOne
+    @JoinColumn(name = "accountNumber")
+    private Account account;
 
-    @Column(name = "walletid")
-    private String walletId;
+    @ManyToOne
+    @JoinColumn(name = "walletId")
+    private Wallet wallet;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
 }
