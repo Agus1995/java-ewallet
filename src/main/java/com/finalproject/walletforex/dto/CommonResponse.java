@@ -1,4 +1,4 @@
-package response;
+package com.finalproject.walletforex.dto;
 
 public class CommonResponse<T> {
     private int responsecode;
