@@ -19,7 +19,8 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     public Account addAccount(AccountDto dto) {
         Account account = setAccount(dto);
-        account.setAccountNumber("123435");
+        String headCif = account.getName().substring(0,2);
+        account.setAccountNumber(String.valueOf(headCif + "-" + count()+1));
         return accountRepository.save(account);
     }
 
@@ -63,6 +64,11 @@ public class AccountDaoImpl implements AccountDao {
         account.setBalance(dto.getBalance());
         account.setName(dto.getName());
         account.setCustomer(dto.getCustomer());
+        account.setCurencyType(dto.getCurrencyType());
         return account;
+    }
+
+    private long count(){
+        return accountRepository.count();
     }
 }

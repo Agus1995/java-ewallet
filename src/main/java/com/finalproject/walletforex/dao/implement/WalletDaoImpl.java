@@ -17,7 +17,8 @@ public class WalletDaoImpl implements WalletDao {
     @Override
     public Wallet addWallet(WalletDto dto) {
         Wallet wallet = setWallet(dto);
-        wallet.setWalletId("1234");
+        String head = wallet.getWalletName().substring(0,2);
+        wallet.setWalletId(String.valueOf(head + "-" + count()+1));
         return walletRepository.save(wallet);
     }
 
@@ -37,5 +38,9 @@ public class WalletDaoImpl implements WalletDao {
         wallet.setCustomer(dto.getCustomer());
 
         return wallet;
+    }
+
+    private long count(){
+        return walletRepository.count();
     }
 }

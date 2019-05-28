@@ -1,6 +1,7 @@
 package com.finalproject.walletforex.dao.implement;
 
 import com.finalproject.walletforex.dao.AccountDao;
+import com.finalproject.walletforex.dao.KursDao;
 import com.finalproject.walletforex.dao.TransactionDao;
 import com.finalproject.walletforex.dto.TransactionDto;
 import com.finalproject.walletforex.exception.AccountNotFoundException;
@@ -22,20 +23,28 @@ public class TransactionDaoImpl implements TransactionDao {
     @Autowired
     private AccountDao accountDao;
 
+    @Autowired
+    private KursDao kursDao;
+
     @Override
     public Transaction transaction(TransactionDto dto) throws AccountNotFoundException, BalanceNotEnoughException {
         Transaction transaction = setTransaction(dto);
         Account accountDebet    = accountDao.findById(transaction.getAccDebet());
         Account accountCredit   = accountDao.findById(transaction.getAccCredit());
-        accountDebet.setBalance(accountDebet.getBalance() - transaction.getAmount());
-        if (accountDebet.getBalance() < 100000){
-            throw new BalanceNotEnoughException(03, "Balance not enough");
+        if (accountDebet.getCurencyType().equals(accountCredit.getCurencyType())){
+            accountDebet.setBalance(accountDebet.getBalance() - transaction.getAmount());
+            if (accountDebet.getBalance() < 0){
+                throw new BalanceNotEnoughException(03, "Balance not enough");
+            }
+            accountCredit.setBalance(accountCredit.getBalance() + transaction.getAmount());
+            accountDao.updateBalance(accountCredit);
+            accountDao.updateBalance(accountDebet);
+            transactionRepository.save(transaction);
+            return transaction;
+        } else {
+
         }
-        accountCredit.setBalance(accountCredit.getBalance() + transaction.getAmount());
-        accountDao.updateBalance(accountCredit);
-        accountDao.updateBalance(accountDebet);
-        transactionRepository.save(transaction);
-        return transaction;
+        return null;
     }
 
     @Override

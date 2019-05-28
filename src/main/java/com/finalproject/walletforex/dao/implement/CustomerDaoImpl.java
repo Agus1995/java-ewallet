@@ -17,7 +17,8 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public Customer registerCustomer(CustomerDto dto) throws UserAlreadyException {
         Customer customer = setCustomer(dto);
-        customer.setCif("12234");
+        String head = customer.getFirstName().substring(0,2);
+        customer.setCif(String.valueOf(head + "-" + count()+1));
         Customer customer1 = findByUsername(dto.getUsername());
         if (customer1 == null){
             throw new UserAlreadyException(02, String.format("User %s already exist", dto.getUsername()));
@@ -63,5 +64,9 @@ public class CustomerDaoImpl implements CustomerDao {
         customer.setUsername(dto.getUsername());
         customer.setPassword(dto.getPassword());
         return customer;
+    }
+
+    private long count(){
+        return customerRepository.count();
     }
 }
