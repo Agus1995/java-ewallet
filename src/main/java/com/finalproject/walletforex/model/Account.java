@@ -1,6 +1,10 @@
 package com.finalproject.walletforex.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "tb_account")
@@ -13,6 +17,12 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "cif")
     private Customer customer;
+    @CreationTimestamp
+    @Column(name = "created_at", insertable=false,updatable=false)
+    private Timestamp createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 
     public Customer getCustomer() {
         return customer;

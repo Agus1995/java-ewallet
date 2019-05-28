@@ -1,9 +1,13 @@
 package com.finalproject.walletforex.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -24,6 +28,12 @@ public class Customer {
     private String phone;
     private String username;
     private String password;
+    @CreationTimestamp
+    @Column(name = "created_at", insertable=false,updatable=false)
+    private Timestamp createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 
     public String getCif() {
         return cif;
