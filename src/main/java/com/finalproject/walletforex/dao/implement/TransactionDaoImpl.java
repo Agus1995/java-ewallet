@@ -42,7 +42,7 @@ public class TransactionDaoImpl implements TransactionDao {
             transactionRepository.save(transaction);
             return transaction;
         } else {
-
+            double kurs = kursDao.buy(accountCredit.getCurencyType(), transaction.getAmount());
         }
         return null;
     }
