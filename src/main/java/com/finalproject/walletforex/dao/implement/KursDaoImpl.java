@@ -13,13 +13,13 @@ public class KursDaoImpl implements KursDao {
     @Override
     public double sell(String code, double val) {
         Kurs kurs = kursRepository.findByCcy(code);
-        return kurs.getSell() * val;
+        return kurs.getBuy() * val;
     }
 
     @Override
     public double buy(String code, double val) {
         Kurs kurs = kursRepository.findByCcy(code);
-        return val * kurs.getBuy();
+        return val / kurs.getSell();
     }
 
     @Override
