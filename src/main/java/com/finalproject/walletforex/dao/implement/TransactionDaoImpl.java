@@ -42,9 +42,24 @@ public class TransactionDaoImpl implements TransactionDao {
             transactionRepository.save(transaction);
             return transaction;
         } else {
-            double kurs = kursDao.buy(accountCredit.getCurencyType(), transaction.getAmount());
+            if(accountCredit.getCurencyType().equals("IDR")){
+                double kurs = kursDao.sell(accountDebet.getCurencyType(), transaction.getAmount());
+                accountCredit.setBalance(accountCredit.getBalance() + kurs);
+                accountDebet.setBalance(accountDebet.getBalance() - transaction.getAmount());
+                accountDao.updateBalance(accountCredit);
+                accountDao.updateBalance(accountDebet);
+                transactionRepository.save(transaction);
+                return transaction;
+            }else {
+                double kurs = kursDao.buy(accountCredit.getCurencyType(), transaction.getAmount());
+                accountCredit.setBalance(accountCredit.getBalance() + kurs);
+                accountDebet.setBalance(accountDebet.getBalance() - transaction.getAmount());
+                accountDao.updateBalance(accountCredit);
+                accountDao.updateBalance(accountDebet);
+                transactionRepository.save(transaction);
+                return transaction;
+            }
         }
-        return null;
     }
 
     @Override

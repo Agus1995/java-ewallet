@@ -2,12 +2,12 @@ package com.finalproject.walletforex.exception;
 
 public class UserAlreadyException extends Exception {
     private int code;
-    private String mesage;
+    private String message;
 
     public UserAlreadyException(int code, String message){
         super();
         this.code = code;
-        this.mesage = message;
+        this.message = message;
     }
 
     public int getCode() {
@@ -18,11 +18,11 @@ public class UserAlreadyException extends Exception {
         this.code = code;
     }
 
-    public String getMesage() {
-        return mesage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMesage(String mesage) {
-        this.mesage = mesage;
+    public void setMessage(String mesage) {
+        this.message = mesage;
     }
 }

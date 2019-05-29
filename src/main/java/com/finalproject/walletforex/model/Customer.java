@@ -28,12 +28,37 @@ public class Customer {
     private String phone;
     private String username;
     private String password;
+    private String npwp;
     @CreationTimestamp
     @Column(name = "created_at", insertable=false,updatable=false)
     private Timestamp createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Timestamp updatedAt;
+
+    public String getNpwp() {
+        return npwp;
+    }
+
+    public void setNpwp(String npwp) {
+        this.npwp = npwp;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public String getCif() {
         return cif;

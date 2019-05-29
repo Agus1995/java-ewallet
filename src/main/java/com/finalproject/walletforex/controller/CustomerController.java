@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CustomerController {
-    private static final String CUSTOMER_LOGIN = "/customer/login"; //path login
-    private static final String CUSTOMER_REGISTER = "/customer/register"; //path register
+    private static final String CUSTOMER_LOGIN = "/login"; //path login
+    private static final String CUSTOMER_REGISTER = "/register"; //path register
 
     @Autowired
     private CustomerDao customerDao;

@@ -20,7 +20,7 @@ public class CustomerDaoImpl implements CustomerDao {
         String head = customer.getFirstName().substring(0,2);
         customer.setCif(String.valueOf(head + "-" + count()+1));
         Customer customer1 = findByUsername(dto.getUsername());
-        if (customer1 == null){
+        if (customer1 != null){
             throw new UserAlreadyException(02, String.format("User %s already exist", dto.getUsername()));
         }
         return customerRepository.save(customer);
