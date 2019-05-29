@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 public class AccountController {
     private static final String ADD_ACCOUNT = "/account"; //path Add Account
-    private static final String GET_ACCOUNT = "/customer/{cif}/account"; //path Get List Account By cif
+    private static final String GET_ACCOUNT = "/customer/{cif}/accounts"; //path Get List Account By cif
 
     @Autowired
     private AccountDao accountDao;
