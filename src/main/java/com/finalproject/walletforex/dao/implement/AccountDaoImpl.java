@@ -65,6 +65,7 @@ public class AccountDaoImpl implements AccountDao {
         account.setName(dto.getName());
         account.setCustomer(dto.getCustomer());
         account.setCurencyType(dto.getCurrencyType());
+        account.setCurencyType(dto.getCurrencyType());
         return account;
     }
 
