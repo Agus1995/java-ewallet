@@ -10,4 +10,5 @@ public interface KursDao {
     double getSellPrice(String code);
     Kurs getByCode(String code);
     Kurs updateKurs(Kurs kurs);
+    Kurs findByCcy(String ccy1, String ccy2);
 }
