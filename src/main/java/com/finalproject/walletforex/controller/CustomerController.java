@@ -7,14 +7,13 @@ import com.finalproject.walletforex.exception.InvalidUsernameOrPasswordException
 import com.finalproject.walletforex.exception.UserAlreadyException;
 import com.finalproject.walletforex.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CustomerController {
     private static final String CUSTOMER_LOGIN = "/login"; //path login
     private static final String CUSTOMER_REGISTER = "/register"; //path register
+    private static final String CUSTOMER_PROFILE = "/customer/{id}";
 
     @Autowired
     private CustomerDao customerDao;
@@ -31,6 +30,14 @@ public class CustomerController {
     public CommonResponse<Customer> Register(@RequestBody CustomerDto dto) throws InvalidUsernameOrPasswordException, UserAlreadyException {
         CommonResponse<Customer> response = new CommonResponse<>();
         Customer customer = customerDao.registerCustomer(dto);
+        response.setData(customer);
+        return response;
+    }
+
+    @GetMapping(path = CUSTOMER_PROFILE)
+    public CommonResponse<Customer> profile(@PathVariable(value = "id") String cif){
+        CommonResponse<Customer> response = new CommonResponse<>();
+        Customer customer = customerDao.findById(cif);
         response.setData(customer);
         return response;
     }
