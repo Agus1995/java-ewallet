@@ -7,6 +7,7 @@ import com.finalproject.walletforex.dto.TransactionDto;
 import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.exception.BalanceNotEnoughException;
 import com.finalproject.walletforex.model.Account;
+import com.finalproject.walletforex.model.Kurs;
 import com.finalproject.walletforex.model.Transaction;
 import com.finalproject.walletforex.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,26 +40,18 @@ public class TransactionDaoImpl implements TransactionDao {
             accountCredit.setBalance(accountCredit.getBalance() + transaction.getAmount());
             accountDao.updateBalance(accountCredit);
             accountDao.updateBalance(accountDebet);
-            transactionRepository.save(transaction);
-            return transaction;
+            return transactionRepository.save(transaction);
+
         } else {
-            if(accountCredit.getCurencyType().equals("IDR")){
-                double kurs = kursDao.sell(accountDebet.getCurencyType(), transaction.getAmount());
-                accountCredit.setBalance(accountCredit.getBalance() + kurs);
-                accountDebet.setBalance(accountDebet.getBalance() - transaction.getAmount());
-                accountDao.updateBalance(accountCredit);
-                accountDao.updateBalance(accountDebet);
-                transactionRepository.save(transaction);
-                return transaction;
-            }else {
-                double kurs = kursDao.buy(accountCredit.getCurencyType(), transaction.getAmount());
-                accountCredit.setBalance(accountCredit.getBalance() + kurs);
-                accountDebet.setBalance(accountDebet.getBalance() - transaction.getAmount());
-                accountDao.updateBalance(accountCredit);
-                accountDao.updateBalance(accountDebet);
-                transactionRepository.save(transaction);
-                return transaction;
+            Kurs kurs = kursDao.findByCcy(accountDebet.getCurencyType(), accountCredit.getCurencyType());
+            accountDebet.setBalance(accountDebet.getBalance() - transaction.getAmount());
+            if (accountDebet.getBalance() < 0){
+                throw new BalanceNotEnoughException(03, "Balance not enough");
             }
+            accountCredit.setBalance(accountCredit.getBalance() + (kurs.getSell() * transaction.getAmount()));
+            accountDao.updateBalance(accountCredit);
+            accountDao.updateBalance(accountDebet);
+            return transactionRepository.save(transaction);
         }
     }
 
