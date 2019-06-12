@@ -23,6 +23,24 @@ public class KursDaoImpl implements KursDao {
     }
 
     @Override
+    public double buyMoney(String code, double val) {
+        Kurs kurs = kursRepository.findByCcy(code);
+        return val * kurs.getSell();
+    }
+
+    @Override
+    public double getBuyPrice(String code) {
+        Kurs kurs = kursRepository.findByCcy(code);
+        return kurs.getBuy();
+    }
+
+    @Override
+    public double getSellPrice(String code) {
+        Kurs kurs = kursRepository.findByCcy(code);
+        return kurs.getSell();
+    }
+
+    @Override
     public Kurs getByCode(String code) {
         return kursRepository.findByCcy(code);
     }
@@ -39,5 +57,10 @@ public class KursDaoImpl implements KursDao {
                     return kursRepository.save(kurs);
                 });
         return kurs1;
+    }
+
+    @Override
+    public Kurs findByCcy(String ccy1, String ccy2) {
+        return kursRepository.findNewestKurs(ccy1, ccy2);
     }
 }
