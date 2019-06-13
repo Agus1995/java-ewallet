@@ -11,38 +11,9 @@ public class KursDaoImpl implements KursDao {
     private KursRepository kursRepository;
 
     @Override
-    public double sell(String code, double val) {
-        Kurs kurs = kursRepository.findByCcy2(code);
-        return kurs.getBuy() * val;
-    }
-
-    @Override
-    public double buy(String code, double val) {
-        Kurs kurs = kursRepository.findByCcy2(code);
-        return val / kurs.getSell();
-    }
-
-    @Override
-    public double buyMoney(String code, double val) {
-        Kurs kurs = kursRepository.findByCcy2(code);
+    public double buyMoney(String ccy1, String ccy2, double val) {
+        Kurs kurs = kursRepository.findByCcy1AndCcy2(ccy1, ccy2);
         return val * kurs.getSell();
-    }
-
-    @Override
-    public double getBuyPrice(String code) {
-        Kurs kurs = kursRepository.findByCcy2(code);
-        return kurs.getBuy();
-    }
-
-    @Override
-    public double getSellPrice(String code) {
-        Kurs kurs = kursRepository.findByCcy2(code);
-        return kurs.getSell();
-    }
-
-    @Override
-    public Kurs getByCode(String code) {
-        return kursRepository.findByCcy2(code);
     }
 
     @Override
