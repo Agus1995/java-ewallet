@@ -5,20 +5,12 @@ import com.finalproject.walletforex.model.TransactionType;
 import java.util.Date;
 
 public class TransactionDto {
-    private int id;
+
     private Date date;
     private String accDebet;
     private String accCredit;
     private double amount;
     private TransactionType transactionType;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Date getDate() {
         return date;
@@ -56,7 +48,7 @@ public class TransactionDto {
         return transactionType;
     }
 
-    public void setTransactionType(TransactionType transactionTypeDto) {
-        this.transactionType = transactionTypeDto;
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 }
