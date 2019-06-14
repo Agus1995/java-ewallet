@@ -6,13 +6,11 @@ import javax.persistence.*;
 @Table (name = "tb_wallet_account")
 public class WalletAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @ManyToOne
     @JoinColumn(name = "accountNumber")
     private Account account;
-
     @ManyToOne
     @JoinColumn(name = "walletId")
     private Wallet wallet;
