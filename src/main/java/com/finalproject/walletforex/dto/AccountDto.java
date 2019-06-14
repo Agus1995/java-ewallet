@@ -6,17 +6,10 @@ public class AccountDto {
     private String accountNumber;
     private String name;
     private double balance;
-    private String curencyType;
+
     private String currencyType;
     private Customer customer;
 
-    public String getCurencyType() {
-        return curencyType;
-    }
-
-    public void setCurencyType(String curencyType) {
-        this.curencyType = curencyType;
-    }
 
     public String getCurrencyType() {
         return currencyType;
