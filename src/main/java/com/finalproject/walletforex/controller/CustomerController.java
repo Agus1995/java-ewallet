@@ -41,8 +41,4 @@ public class CustomerController {
         response.setData(customer);
         return response;
     }
-
-
-
-
 }
