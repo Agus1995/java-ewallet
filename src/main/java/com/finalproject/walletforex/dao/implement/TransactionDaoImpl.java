@@ -79,7 +79,7 @@ public class TransactionDaoImpl implements TransactionDao {
         transaction.setAmount(dto.getAmount());
         transaction.setDate((Date) dto.getDate());
         transaction.setId(dto.getId());
-        transaction.setTransactionType(dto.getTransactionTypeDto());
+        transaction.setTransactionType(dto.getTransactionType());
         return transaction;
     }
 }

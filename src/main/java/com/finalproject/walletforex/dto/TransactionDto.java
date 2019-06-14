@@ -10,7 +10,7 @@ public class TransactionDto {
     private String accDebet;
     private String accCredit;
     private double amount;
-    private TransactionType transactionTypeDto;
+    private TransactionType transactionType;
 
     public int getId() {
         return id;
@@ -52,11 +52,11 @@ public class TransactionDto {
         this.amount = amount;
     }
 
-    public TransactionType getTransactionTypeDto() {
-        return transactionTypeDto;
+    public TransactionType getTransactionType() {
+        return transactionType;
     }
 
-    public void setTransactionTypeDto(TransactionType transactionTypeDto) {
-        this.transactionTypeDto = transactionTypeDto;
+    public void setTransactionType(TransactionType transactionTypeDto) {
+        this.transactionType = transactionTypeDto;
     }
 }
