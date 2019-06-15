@@ -3,6 +3,7 @@ package com.finalproject.walletforex.dao.implement;
 import com.finalproject.walletforex.dao.CustomerDao;
 import com.finalproject.walletforex.dao.WalletAccountDao;
 import com.finalproject.walletforex.dto.WalletAccountDto;
+import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.model.Customer;
 import com.finalproject.walletforex.model.WalletAccount;
 import com.finalproject.walletforex.repository.WalletAccountRepository;
@@ -28,7 +29,7 @@ public class WalletAccountDaoImpl implements WalletAccountDao {
     }
 
     @Override
-    public List<WalletAccount> getRegistered(String cif) {
+    public List<WalletAccount> getRegistered(String cif) throws AccountNotFoundException {
         List<WalletAccount> walletAccounts = new ArrayList<>();
         Customer customer = customerDao.findById(cif);
         walletAccounts = walletAccountRepository.findByAccountCustomer(customer);
