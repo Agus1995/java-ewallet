@@ -3,6 +3,7 @@ package com.finalproject.walletforex.controller;
 import com.finalproject.walletforex.dao.WalletAccountDao;
 import com.finalproject.walletforex.dto.CommonResponse;
 import com.finalproject.walletforex.dto.WalletAccountDto;
+import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.model.WalletAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class WalletAccountController {
     }
 
     @GetMapping(path = LIST_REGISTERED)
-    public CommonResponse<List<WalletAccount>> unreg(@PathVariable(value = "cif") String cif){
+    public CommonResponse<List<WalletAccount>> unreg(@PathVariable(value = "cif") String cif) throws AccountNotFoundException {
         CommonResponse<List<WalletAccount>> response = new CommonResponse<>();
         List<WalletAccount> walletAccounts = walletAccountDao.getRegistered(cif);
         response.setData(walletAccounts);

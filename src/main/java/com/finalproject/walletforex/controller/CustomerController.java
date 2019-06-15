@@ -3,6 +3,7 @@ package com.finalproject.walletforex.controller;
 import com.finalproject.walletforex.dao.CustomerDao;
 import com.finalproject.walletforex.dto.CommonResponse;
 import com.finalproject.walletforex.dto.CustomerDto;
+import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.exception.InvalidUsernameOrPasswordException;
 import com.finalproject.walletforex.exception.UserAlreadyException;
 import com.finalproject.walletforex.model.Customer;
@@ -35,7 +36,7 @@ public class CustomerController {
     }
 
     @GetMapping(path = CUSTOMER_PROFILE)
-    public CommonResponse<Customer> profile(@PathVariable(value = "id") String cif){
+    public CommonResponse<Customer> profile(@PathVariable(value = "id") String cif) throws AccountNotFoundException {
         CommonResponse<Customer> response = new CommonResponse<>();
         Customer customer = customerDao.findById(cif);
         response.setData(customer);

@@ -36,7 +36,7 @@ public class TransactionDaoImpl implements TransactionDao {
         if (accountDebet.getCurencyType().equals(accountCredit.getCurencyType())){
             accountDebet.setBalance(accountDebet.getBalance() - transaction.getAmount());
             if (accountDebet.getBalance() < 0){
-                throw new BalanceNotEnoughException(03, "Balance not enough");
+                throw new BalanceNotEnoughException(3, "Balance not enough");
             }
             accountCredit.setBalance(accountCredit.getBalance() + transaction.getAmount());
             accountDao.updateBalance(accountCredit);
@@ -54,7 +54,7 @@ public class TransactionDaoImpl implements TransactionDao {
             }
             accountDebet.setBalance(accountDebet.getBalance() - transaction.getAmount());
             if (accountDebet.getBalance() < 0){
-                throw new BalanceNotEnoughException(03, "Balance not enough");
+                throw new BalanceNotEnoughException(3, "Balance not enough");
             }
             accountCredit.setBalance(accountCredit.getBalance() + result );
             accountDao.updateBalance(accountCredit);
@@ -78,7 +78,6 @@ public class TransactionDaoImpl implements TransactionDao {
         transaction.setAccDebet(dto.getAccDebet());
         transaction.setAmount(dto.getAmount());
         transaction.setDate((Date) dto.getDate());
-        transaction.setId(dto.getId());
         transaction.setTransactionType(dto.getTransactionType());
         return transaction;
     }

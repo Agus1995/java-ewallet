@@ -36,7 +36,11 @@ public class KursController {
     }
 
     @GetMapping(path = GET_NEW)
-    public CommonResponse<Kurs> getNew(@RequestBody KursDto dto) {
+    @ResponseBody
+    public CommonResponse<Kurs> getNew(@RequestParam(name = "ccy1") String ccy1, @RequestParam(name = "ccy2") String ccy2) {
+        KursDto dto = new KursDto();
+        dto.setCcy1(ccy1);
+        dto.setCcy2(ccy2);
         CommonResponse<Kurs> response = new CommonResponse<>();
         Kurs kurs = kursDao.getNewest(dto);
         response.setData(kurs);
@@ -45,7 +49,7 @@ public class KursController {
 
     @GetMapping(path = GRAPH)
     @ResponseBody
-    public CommonResponse<List<Kurs>> getGraph(@RequestParam(name = "id") String ccy1, @RequestParam String ccy2) {
+    public CommonResponse<List<Kurs>> getGraph(@RequestParam(name = "ccy1") String ccy1, @RequestParam(name = "ccy2") String ccy2) {
         CommonResponse<List<Kurs>> response = new CommonResponse<>();
         List<Kurs> kurs = kursDao.findGraph(ccy1,ccy2);
         response.setData(kurs);

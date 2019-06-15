@@ -2,6 +2,7 @@ package com.finalproject.walletforex.dao.implement;
 
 import com.finalproject.walletforex.dao.CustomerDao;
 import com.finalproject.walletforex.dto.CustomerDto;
+import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.exception.InvalidUsernameOrPasswordException;
 import com.finalproject.walletforex.exception.UserAlreadyException;
 import com.finalproject.walletforex.model.Customer;
@@ -39,8 +40,11 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public Customer findById(String id) {
+    public Customer findById(String id) throws AccountNotFoundException {
         Customer customer = customerRepository.findById(id).orElse(null);
+        if (customer == null){
+            throw new AccountNotFoundException(2, "Customer Not Found");
+        }
         return customer;
     }
 
