@@ -34,7 +34,7 @@ public class WalletAccountDaoImpl implements WalletAccountDao {
         Customer customer = customerDao.findById(cif);
         walletAccounts = walletAccountRepository.findByAccountCustomer(customer);
         if (walletAccounts.isEmpty()){
-            return null;
+            return walletAccounts;
         }
         return walletAccounts;
     }
