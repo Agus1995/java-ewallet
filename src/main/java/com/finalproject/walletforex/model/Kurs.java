@@ -1,7 +1,8 @@
 package com.finalproject.walletforex.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "tb_kurs")
@@ -13,6 +14,7 @@ public class Kurs {
     private String ccy2;
     private double sell;
     private double buy;
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     public Date getDate() {
