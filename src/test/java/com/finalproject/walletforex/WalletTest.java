@@ -31,9 +31,6 @@ public class WalletTest {
     @Rule
     public ExpectedException rule = ExpectedException.none();
 
-//    Wallet addWallet(WalletDto dto);
-//    List<Wallet> findByCif(String cif);
-
     @Before
     public void setDao() throws UserAlreadyException {
         CustomerDto customer = new CustomerDto();
