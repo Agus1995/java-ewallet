@@ -15,13 +15,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class KursTest {
-//    double buyMoney(String ccy1, String ccy2, double val);
-//    Kurs updateKurs(Kurs kurs);
-//    Kurs findByCcy(String ccy1, String ccy2);
-//    Kurs addNew(KursDto dto);
-//    Kurs getNewest(KursDto dto);
-//    List<Kurs> getAll();
-//    List<Kurs> findGraph(String ccy1, String ccy2);
+
 
     @Autowired
     private KursDao kursDao;
