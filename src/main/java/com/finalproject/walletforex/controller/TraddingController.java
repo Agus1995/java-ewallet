@@ -35,7 +35,7 @@ public class TraddingController {
     }
 
     @PostMapping(path = SELL)
-    public CommonResponse<ForexTradding> sell(@RequestBody TraddingDto dto) throws BalanceNotEnoughException {
+    public CommonResponse<ForexTradding> sell(@RequestBody TraddingDto dto) throws BalanceNotEnoughException, AccountNotFoundException {
         CommonResponse<ForexTradding> response = new CommonResponse<>();
         ForexTradding forexTradding = traddingDao.sell(dto);
         response.setData(forexTradding);
