@@ -6,9 +6,11 @@ import com.finalproject.walletforex.exception.BalanceNotEnoughException;
 import com.finalproject.walletforex.exception.WalletNotFoundException;
 import com.finalproject.walletforex.model.ForexTradding;
 
+import java.util.List;
+
 public interface TraddingDao {
     ForexTradding buy(TraddingDto traddingDto) throws AccountNotFoundException, BalanceNotEnoughException;
     ForexTradding sell(TraddingDto traddingDto) throws BalanceNotEnoughException;
-    ForexTradding check(String cif) throws WalletNotFoundException;
+    List<ForexTradding> getByCif(String cif) throws WalletNotFoundException;
     double checksum(String cif);
 }
