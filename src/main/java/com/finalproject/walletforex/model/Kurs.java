@@ -1,5 +1,7 @@
 package com.finalproject.walletforex.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +16,7 @@ public class Kurs {
     private String ccy2;
     private double sell;
     private double buy;
+    @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private Date date;
 
