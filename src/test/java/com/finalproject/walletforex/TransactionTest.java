@@ -21,6 +21,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class TransactionTest {
@@ -73,12 +75,36 @@ public class TransactionTest {
         Customer customer = customerDao.registerCustomer(customerDto);
         for (int i = 0; i<3; i++){
             accountDto.setName("danis");
-            accountDto.setBalance(100000);
+            accountDto.setBalance(1000000);
             accountDto.setCurrencyType("IDR");
             accountDto.setCustomer(customer);
             accountDtoList.add(accountDto);
         }
         transactionDto.setAccCredit(accountDao.addAccount(accountDtoList.get(0)).getAccountNumber());
+        transactionDto.setAccDebet(accountDao.addAccount(accountDtoList.get(1)).getAccountNumber());
+        transactionDto.setAmount(5000000);
+        assertEquals(String.valueOf(transactionDto.getAmount()), String.valueOf(transactionDao.transaction(transactionDto).getAmount()));
+    }
+
+    @Test
+    public void transactionTestAccount() throws UserAlreadyException, AccountNotFoundException, BalanceNotEnoughException {
+        rule.expect(AccountNotFoundException.class);
+        CustomerDto customerDto = new CustomerDto();
+        AccountDto accountDto = new AccountDto();
+        TransactionDto transactionDto = new TransactionDto();
+        List<AccountDto> accountDtoList = new ArrayList<>();
+        customerDto.setUsername("paijo");
+        customerDto.setFirstName("agus");
+        customerDto.setPassword("1234");
+        Customer customer = customerDao.registerCustomer(customerDto);
+        for (int i = 0; i<3; i++){
+            accountDto.setName("citra");
+            accountDto.setBalance(100000);
+            accountDto.setCurrencyType("IDR");
+            accountDto.setCustomer(customer);
+            accountDtoList.add(accountDto);
+        }
+        transactionDto.setAccCredit("123");
         transactionDto.setAccDebet(accountDao.addAccount(accountDtoList.get(1)).getAccountNumber());
         transactionDto.setAmount(5000000);
         assertEquals(String.valueOf(transactionDto.getAmount()), String.valueOf(transactionDao.transaction(transactionDto).getAmount()));
