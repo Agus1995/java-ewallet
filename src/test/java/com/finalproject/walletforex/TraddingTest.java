@@ -46,8 +46,7 @@ public class TraddingTest {
         kursDto.setCcy2("USD");
         kursDto.setBuy(15000);
         kursDto.setSell(14500);
-        System.out.println(kursDao.addNew(kursDto).getDate());
-
+        kursDao.addNew(kursDto);
     }
 
     @Test
@@ -66,7 +65,7 @@ public class TraddingTest {
         traddingDto.setAccount(accountDao.addAccount(accountDto).getAccountNumber());
         traddingDto.setCustomer(accountDto.getCustomer());
         traddingDto.setAmount((double) 10);
-        traddingDto.setRate((double) 15000);
+        traddingDto.setRate((double) 14500);
         assertEquals(traddingDto.getRate(), traddingDao.buy(traddingDto).getRate());
     }
     @Test
@@ -85,7 +84,7 @@ public class TraddingTest {
         traddingDto.setAccount(accountDao.addAccount(accountDto).getAccountNumber());
         traddingDto.setCustomer(accountDto.getCustomer());
         traddingDto.setAmount((double) 10);
-        traddingDto.setRate((double) 15000);
+        traddingDto.setRate((double) 14500);
         traddingDao.buy(traddingDto);
         assertEquals(traddingDto.getRate(), traddingDao.getByCif(accountDto.getCustomer().getCif()).get(0).getRate());
     }
@@ -149,25 +148,4 @@ public class TraddingTest {
         traddingDto.setRate((double) 15000);
         assertEquals(traddingDto.getRate(), traddingDao.buy(traddingDto).getRate());
     }
-
-//    @Test
-//    public void sellTrad1() throws UserAlreadyException, AccountNotFoundException, BalanceNotEnoughException, WalletNotFoundException {
-//        CustomerDto customerDto = new CustomerDto();
-//        customerDto.setUsername("agus");
-//        customerDto.setFirstName("agus");
-//        customerDto.setPassword("1234");
-//        AccountDto accountDto = new AccountDto();
-//        accountDto.setCustomer(customerDao.registerCustomer(customerDto));
-//        accountDto.setCurrencyType("IDR");
-//        accountDto.setBalance(2000000000);
-//        accountDto.setName("traddingggg");
-//        TraddingDto traddingDto = new TraddingDto();
-//        traddingDto.setCcy("USD");
-//        traddingDto.setAccount(accountDao.addAccount(accountDto).getAccountNumber());
-//        traddingDto.setCustomer(accountDto.getCustomer());
-//        traddingDto.setAmount((double) 10);
-//        traddingDto.setRate((double) 15000);
-//        traddingDao.buy(traddingDto);
-//        assertEquals();
-//    }
 }
