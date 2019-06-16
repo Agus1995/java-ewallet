@@ -10,8 +10,11 @@ import com.finalproject.walletforex.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerDaoImpl implements CustomerDao {
+
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -46,6 +49,11 @@ public class CustomerDaoImpl implements CustomerDao {
             throw new AccountNotFoundException(2, "Customer Not Found");
         }
         return customer;
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return customerRepository.findAll();
     }
 
 

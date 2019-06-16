@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TraddingDao {
     ForexTradding buy(TraddingDto traddingDto) throws AccountNotFoundException, BalanceNotEnoughException;
-    ForexTradding sell(TraddingDto traddingDto) throws BalanceNotEnoughException;
+    ForexTradding sell(TraddingDto traddingDto) throws BalanceNotEnoughException, AccountNotFoundException;
     List<ForexTradding> getByCif(String cif) throws WalletNotFoundException;
     double checksum(String cif);
 }
