@@ -167,7 +167,7 @@ public class TraddingDaoImpl implements TraddingDao {
         }
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(cron = "0 1 1 * * ?")
     private void reportTradding() {
         List<Customer> customers = new ArrayList<>();
         TraddingReport traddingReport = new TraddingReport();
