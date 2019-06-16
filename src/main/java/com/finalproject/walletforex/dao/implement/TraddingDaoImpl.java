@@ -94,14 +94,9 @@ public class TraddingDaoImpl implements TraddingDao {
         }
     }
     @Override
-    public ForexTradding check(String cif) throws WalletNotFoundException {
+    public List<ForexTradding> getByCif(String cif) throws WalletNotFoundException {
         List<ForexTradding> forexTraddings = traddingRepository.findByCif(cif);
-        if (forexTraddings.isEmpty()){
-            throw new WalletNotFoundException( 9, "tidak ketemu");
-        }
-        double a = traddingRepository.getSum(cif);
-        System.out.println(a);
-        return forexTraddings.get(0);
+        return forexTraddings;
     }
 
     @Override
