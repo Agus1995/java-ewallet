@@ -141,11 +141,12 @@ public class TraddingDaoImpl implements TraddingDao {
         return forexTradding;
     }
 
-    private Kurs getNewRate(TraddingDto dto){
+    private Kurs getNewRate(TraddingDto dto) throws AccountNotFoundException {
         KursDto kursDto = new KursDto();
-        kursDto.setCcy1(dto.getAccount());
+        Account account = accountDao.findById(dto.getAccount());
+        kursDto.setCcy1(account.getCurencyType());
         kursDto.setCcy2(dto.getCcy());
-        return kursDao.getNewest(kursDto);
+        return kursDao.findByCcy(account.getCurencyType(), dto.getCcy());
     }
 
     private void addToAccount(String acc, String ccy, double value) throws AccountNotFoundException {
