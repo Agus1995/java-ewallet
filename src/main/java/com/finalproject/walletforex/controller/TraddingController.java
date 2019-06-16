@@ -7,25 +7,24 @@ import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.exception.BalanceNotEnoughException;
 import com.finalproject.walletforex.model.ForexTradding;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TraddingController {
     private static final String SELL = "/sell"; //path login
     private static final String BUY = "/buy"; //path login
+    private static final String GET_SUM = "/tradding/{cif}";
 
     @Autowired
     private TraddingDao traddingDao;
 
-//    @GetMapping(path = SELL)
-//    public CommonResponse<ForexTradding> profile(@PathVariable(value = "cif") String cif) throws WalletNotFoundException {
-//        CommonResponse<ForexTradding> response = new CommonResponse<>();
-//        ForexTradding forexTradding = traddingDao.check(cif);
-//        response.setData(forexTradding);
-//        return response;
-//    }
+    @GetMapping(path = GET_SUM)
+    public CommonResponse<Double> getSum(@PathVariable(value = "cif") String cif){
+        CommonResponse<Double> response = new CommonResponse<>();
+        Double sum = traddingDao.checksum(cif);
+        response.setData(sum);
+        return response;
+    }
 
     @PostMapping(path = BUY)
     public CommonResponse<ForexTradding> buy(@RequestBody TraddingDto dto) throws AccountNotFoundException, BalanceNotEnoughException {
