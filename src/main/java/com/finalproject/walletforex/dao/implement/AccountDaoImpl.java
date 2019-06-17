@@ -30,7 +30,7 @@ public class AccountDaoImpl implements AccountDao {
         if (account!=null){
             return account;
         }
-        return null;
+        return account;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class AccountDaoImpl implements AccountDao {
                     account.setAccountNumber(account.getAccountNumber());
                     return accountRepository.save(account);
                 });
-        if (account1==null){
+        if (account1 == null){
             throw new AccountNotFoundException(02, String.format("Id %s Not found", account.getAccountNumber()));
         }
         return account1;
