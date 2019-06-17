@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface WalletAccountRepository extends JpaRepository<WalletAccount, Integer> {
     List<WalletAccount> findByAccountCustomer(Customer customer);
+    List<WalletAccount> findByWallet_WalletId(String id);
 
 }

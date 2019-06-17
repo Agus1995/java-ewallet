@@ -17,6 +17,8 @@ public class WalletAccountController {
     private static final String REGISTER_WALLET = "/wallet-account"; //path Add Account
     private static final String UNREGISTER_WALLET = "/wallet-account/{id}"; //path Get List Account By cif
     private static final String LIST_REGISTERED = "/customer/{cif}/wallet-accounts"; //path Add Account
+    private static final String LIST_BY_WALLET = "/wallet/{id}/wallet-accounts"; //path Add Account
+
 
 
     @PostMapping(path = REGISTER_WALLET)
@@ -42,4 +44,11 @@ public class WalletAccountController {
         return response;
     }
 
+    @GetMapping(path = LIST_BY_WALLET)
+    public  CommonResponse<List<WalletAccount>> findByWallet(@PathVariable(value = "id") String id){
+        CommonResponse<List<WalletAccount>> response = new CommonResponse<>();
+        List<WalletAccount> walletAccounts = walletAccountDao.findByWallet(id);
+        response.setData(walletAccounts);
+        return response;
+    }
 }
