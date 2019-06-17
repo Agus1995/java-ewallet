@@ -9,5 +9,6 @@ import java.util.List;
 public interface WalletAccountDao {
     WalletAccount register(WalletAccountDto dto);
     List<WalletAccount> getRegistered(String cif) throws AccountNotFoundException;
+    List<WalletAccount> findByWallet(String walletId);
     void unreg(int id);
 }
