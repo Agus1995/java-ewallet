@@ -61,6 +61,7 @@ public class TraddingDaoImpl implements TraddingDao {
     public ForexTradding sell(TraddingDto traddingDto) throws BalanceNotEnoughException, AccountNotFoundException {
         ForexTradding forexTradding = set(traddingDto);
         String accNumb = traddingDto.getAccount();
+        forexTradding.setRate(getNewRate(traddingDto).getSell());
         if (forexTradding.getAmount() <= traddingRepository.getSum(forexTradding.getCustomer().getCif())){
             ForexTradding forexTradding1 = get(forexTradding.getCustomer().getCif(), 0);
             forexTradding.setDescription("S");
