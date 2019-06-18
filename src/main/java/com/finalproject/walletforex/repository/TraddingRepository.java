@@ -16,5 +16,5 @@ public interface TraddingRepository extends JpaRepository<ForexTradding, Integer
     @Query("SELECT SUM(f.restOfMoney) FROM ForexTradding f WHERE f.restOfMoney>0 AND f.description= 'B' AND f.customer.cif= :cif")
     double getSum(@Param("cif") String cif);
 
-    List<ForexTradding> findByCif(String cif);
+    List<ForexTradding> findByCustomer_Cif(String cif);
 }

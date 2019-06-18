@@ -110,7 +110,7 @@ public class TraddingDaoImpl implements TraddingDao {
 
     @Override
     public List<ForexTradding> getWithFif(String cif) throws AccountNotFoundException {
-        List<ForexTradding> forexTraddings = traddingRepository.findByCif(cif);
+        List<ForexTradding> forexTraddings = traddingRepository.findByCustomer_Cif(cif);
         if (forexTraddings.isEmpty()){
             throw new AccountNotFoundException(2, "you have not yet traded");
         }
