@@ -18,7 +18,8 @@
 		<java.version>1.8</java.version>
 		<sonar.exclusions>
 			**/dto/**,
-			**/model/**
+			**/model/**,
+			**/exception/**
 		</sonar.exclusions>
 	</properties>
 
