@@ -128,6 +128,98 @@ public class TraddingTest {
         traddingDao.buy(traddingDto);
         assertEquals(String.valueOf(5500.0), String.valueOf(accountDao.findById(traddingDto.getAccount()).getBalance()));
     }
+
+    @Test
+    public void sellTrad1() throws UserAlreadyException, AccountNotFoundException, BalanceNotEnoughException, WalletNotFoundException {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setUsername("agusss");
+        customerDto.setFirstName("agusss");
+        customerDto.setPassword("1234");
+        AccountDto accountDto = new AccountDto();
+        accountDto.setCustomer(customerDao.registerCustomer(customerDto));
+        accountDto.setCurrencyType("IDR");
+        accountDto.setBalance(500000000);
+        accountDto.setName("traddingggg");
+        TraddingDto traddingDto = new TraddingDto();
+        traddingDto.setCcy("USD");
+        traddingDto.setAccount(accountDao.addAccount(accountDto).getAccountNumber());
+        traddingDto.setCustomer(accountDto.getCustomer());
+        traddingDto.setAmount((double) 2);
+        traddingDto.setRate((double) 15000);
+        traddingDao.buy(traddingDto);
+        traddingDto.setAmount((double) 2);
+//        traddingDto.setRate((double) 15000);
+        assertEquals(String.valueOf(0.0), String.valueOf(traddingDao.sell(traddingDto).getProvitLost()));
+    }
+
+    @Test
+    public void sellTrad2() throws UserAlreadyException, AccountNotFoundException, BalanceNotEnoughException, WalletNotFoundException {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setUsername("agusss");
+        customerDto.setFirstName("agusss");
+        customerDto.setPassword("1234");
+        AccountDto accountDto = new AccountDto();
+        accountDto.setCustomer(customerDao.registerCustomer(customerDto));
+        accountDto.setCurrencyType("IDR");
+        accountDto.setBalance(500000000);
+        accountDto.setName("traddingggggggg");
+        TraddingDto traddingDto = new TraddingDto();
+        traddingDto.setCcy("USD");
+        traddingDto.setAccount(accountDao.addAccount(accountDto).getAccountNumber());
+        traddingDto.setCustomer(accountDto.getCustomer());
+        traddingDto.setAmount((double) 2);
+        traddingDto.setRate((double) 15000);
+        traddingDao.buy(traddingDto);
+        traddingDto.setAmount((double) 2);
+        assertEquals(traddingDto.getCcy(), traddingDao.sell(traddingDto).getCcy());
+    }
+
+    @Test
+    public void sellTrad3() throws UserAlreadyException, AccountNotFoundException, BalanceNotEnoughException, WalletNotFoundException {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setUsername("agussss");
+        customerDto.setFirstName("agussss");
+        customerDto.setPassword("1234");
+        AccountDto accountDto = new AccountDto();
+        accountDto.setCustomer(customerDao.registerCustomer(customerDto));
+        accountDto.setCurrencyType("IDR");
+        accountDto.setBalance(500000000);
+        accountDto.setName("traddingggggggg");
+        TraddingDto traddingDto = new TraddingDto();
+        traddingDto.setCcy("USD");
+        traddingDto.setAccount(accountDao.addAccount(accountDto).getAccountNumber());
+        traddingDto.setCustomer(accountDto.getCustomer());
+        traddingDto.setAmount((double) 2);
+        traddingDto.setRate((double) 15000);
+        traddingDao.buy(traddingDto);
+        traddingDto.setAmount((double) 2);
+        assertEquals(traddingDto.getAmount(), traddingDao.sell(traddingDto).getAmount());
+    }
+
+    @Test
+    public void sellTrad4() throws UserAlreadyException, AccountNotFoundException, BalanceNotEnoughException, WalletNotFoundException {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setUsername("agussss");
+        customerDto.setFirstName("agussss");
+        customerDto.setPassword("1234");
+        AccountDto accountDto = new AccountDto();
+        accountDto.setCustomer(customerDao.registerCustomer(customerDto));
+        accountDto.setCurrencyType("IDR");
+        accountDto.setBalance(500000000);
+        accountDto.setName("traddingggggggg");
+        TraddingDto traddingDto = new TraddingDto();
+        traddingDto.setCcy("USD");
+        traddingDto.setAccount(accountDao.addAccount(accountDto).getAccountNumber());
+        traddingDto.setCustomer(accountDto.getCustomer());
+        traddingDto.setAmount((double) 2);
+        traddingDto.setRate((double) 15000);
+        traddingDao.buy(traddingDto);
+        traddingDto.setAmount((double) 2);
+        assertEquals("S", traddingDao.sell(traddingDto).getDescription());
+    }
+
+
+
     @Test
     public void negativeBuyTrad() throws UserAlreadyException, AccountNotFoundException, BalanceNotEnoughException {
         rule.expect(BalanceNotEnoughException.class);
