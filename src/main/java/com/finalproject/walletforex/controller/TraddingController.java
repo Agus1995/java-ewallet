@@ -9,11 +9,14 @@ import com.finalproject.walletforex.model.ForexTradding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class TraddingController {
     private static final String SELL = "/sell"; //path login
     private static final String BUY = "/buy"; //path login
     private static final String GET_SUM = "/tradding/{cif}";
+    private static final String GET_REPOST = "/report/{cif}";
 
     @Autowired
     private TraddingDao traddingDao;
@@ -23,6 +26,14 @@ public class TraddingController {
         CommonResponse<Double> response = new CommonResponse<>();
         Double sum = traddingDao.checksum(cif);
         response.setData(sum);
+        return response;
+    }
+
+    @GetMapping(path = GET_SUM)
+    public CommonResponse<List<ForexTradding>> getReport(@PathVariable(value = "cif") String cif) throws AccountNotFoundException {
+        CommonResponse<List<ForexTradding>> response = new CommonResponse<>();
+        List<ForexTradding> forexTraddings = traddingDao.getWithFif(cif);
+        response.setData(forexTraddings);
         return response;
     }
 

@@ -104,7 +104,16 @@ public class TraddingDaoImpl implements TraddingDao {
     }
     @Override
     public List<ForexTradding> getByCif(String cif) throws WalletNotFoundException {
+        List<ForexTradding> forexTraddings = traddingRepository.findByCiff(cif);
+        return forexTraddings;
+    }
+
+    @Override
+    public List<ForexTradding> getWithFif(String cif) throws AccountNotFoundException {
         List<ForexTradding> forexTraddings = traddingRepository.findByCif(cif);
+        if (forexTraddings.isEmpty()){
+            throw new AccountNotFoundException(2, "you have not yet traded");
+        }
         return forexTraddings;
     }
 
@@ -114,7 +123,7 @@ public class TraddingDaoImpl implements TraddingDao {
     }
 
     private ForexTradding get(String cif, int i){
-        List<ForexTradding> forexTraddings = traddingRepository.findByCif(cif);
+        List<ForexTradding> forexTraddings = traddingRepository.findByCiff(cif);
         return forexTraddings.get(0);
     }
 
