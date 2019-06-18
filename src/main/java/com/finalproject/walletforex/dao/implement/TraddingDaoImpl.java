@@ -4,7 +4,6 @@ import com.finalproject.walletforex.dao.AccountDao;
 import com.finalproject.walletforex.dao.CustomerDao;
 import com.finalproject.walletforex.dao.KursDao;
 import com.finalproject.walletforex.dao.TraddingDao;
-import com.finalproject.walletforex.dto.KursDto;
 import com.finalproject.walletforex.dto.TraddingDto;
 import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.exception.BalanceNotEnoughException;
@@ -37,17 +36,18 @@ public class TraddingDaoImpl implements TraddingDao {
     public ForexTradding buy(TraddingDto traddingDto) throws AccountNotFoundException, BalanceNotEnoughException {
         ForexTradding forexTradding = set(traddingDto);
         forexTradding.setDescription("B");
-        forexTradding.setRate(getNewRate(traddingDto).getSell());
         forexTradding.setRestOfMoney(forexTradding.getAmount());
         String accNumb = traddingDto.getAccount();
          Account account = accountDao.findById(accNumb);
         if (account.getCurencyType().equals(forexTradding.getCcy())){
+            forexTradding.setRate((double) 1);
             if (account.getBalance() < forexTradding.getAmount())
                 throw new BalanceNotEnoughException(03, "Your Balance Not Enough");
             account.setBalance(account.getBalance() - forexTradding.getAmount());
             accountDao.updateBalance(account);
             return traddingRepository.save(forexTradding);
         }else {
+            forexTradding.setRate(getNewRate(traddingDto).getSell());
             double kurs = kursDao.buyMoney(account.getCurencyType(), forexTradding.getCcy(), forexTradding.getAmount());
             if (account.getBalance() < kurs)
                 throw new BalanceNotEnoughException(03, "Your Balance Not enough");
@@ -72,7 +72,6 @@ public class TraddingDaoImpl implements TraddingDao {
                 addToAccount(accNumb, traddingDto.getCcy(), traddingDto.getAmount());
                 return traddingRepository.save(forexTradding);
             }else {
-
                 double leftovers = forexTradding.getAmount() - forexTradding1.getRestOfMoney();
                 double provLost = forexTradding1.getRestOfMoney() * (forexTradding.getRate() - forexTradding1.getRate());
 
@@ -98,7 +97,7 @@ public class TraddingDaoImpl implements TraddingDao {
                 addToAccount(accNumb, traddingDto.getCcy(), traddingDto.getAmount());
                 return traddingRepository.save(forexTradding);
             }
-      //      return forexTradding;
+           // return forexTradding;
         }else {
             throw new BalanceNotEnoughException(31, "Your Balance not enough");
         }
@@ -143,10 +142,7 @@ public class TraddingDaoImpl implements TraddingDao {
     }
 
     private Kurs getNewRate(TraddingDto dto) throws AccountNotFoundException {
-        KursDto kursDto = new KursDto();
         Account account = accountDao.findById(dto.getAccount());
-        kursDto.setCcy1(account.getCurencyType());
-        kursDto.setCcy2(dto.getCcy());
         return kursDao.findByCcy(account.getCurencyType(), dto.getCcy());
     }
 
