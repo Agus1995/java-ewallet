@@ -16,7 +16,7 @@ pipeline{
     stage('Build artifact') {
       steps{
         sh "mvn clean install"
-      	sh "mvn sonar:sonar -Dsonar.projectKey=wallet-forex -Dsonar.host.url=http://159.89.227.122:9000"
+      	sh "mvn sonar:sonar -Dsonar.projectKey=wallet-forex-be -Dsonar.host.url=http://159.89.227.122:9000"
       }
     }
     stage('Build Image') {
