@@ -12,5 +12,6 @@ public interface TraddingDao {
     ForexTradding buy(TraddingDto traddingDto) throws AccountNotFoundException, BalanceNotEnoughException;
     ForexTradding sell(TraddingDto traddingDto) throws BalanceNotEnoughException, AccountNotFoundException;
     List<ForexTradding> getByCif(String cif) throws WalletNotFoundException;
+    List<ForexTradding> getWithFif(String cif) throws AccountNotFoundException;
     double checksum(String cif);
 }
