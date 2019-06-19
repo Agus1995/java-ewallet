@@ -12,6 +12,7 @@ public class ForexTradding {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @CreationTimestamp
+    @Temporal(TemporalType.DATE)
     @Column(name = "date", insertable=false,updatable=false)
     private Timestamp date;
     private String ccy;
