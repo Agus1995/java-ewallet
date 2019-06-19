@@ -20,6 +20,7 @@
 			**/dto/**,
 			**/model/**,
 			**/exception/**
+            **/config.beans/**
 		</sonar.exclusions>
 	</properties>
 
