@@ -20,20 +20,6 @@ public class KursDaoImpl implements KursDao {
     }
 
     @Override
-    public Kurs updateKurs(Kurs kurs) {
-        Kurs kurs1 = kursRepository.findById(kurs.getId())
-                .map(ent-> {
-                  ent.setSell(kurs.getSell());
-                  ent.setBuy(kurs.getBuy());
-                  return kursRepository.save(ent);
-                }).orElseGet(()->{
-                    kurs.setId(kurs.getId());
-                    return kursRepository.save(kurs);
-                });
-        return kurs1;
-    }
-
-    @Override
     public Kurs findByCcy(String ccy1, String ccy2) {
         return kursRepository.findNewestKurs(ccy1, ccy2);
     }

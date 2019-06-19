@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,11 +58,12 @@ public class TraddingDaoImpl implements TraddingDao {
 
     @Override
     public ForexTradding sell(TraddingDto traddingDto) throws BalanceNotEnoughException, AccountNotFoundException {
-        ForexTradding forexTradding = set(traddingDto);
         String accNumb = traddingDto.getAccount();
+        Account acc = accountDao.findById(accNumb);
+        ForexTradding forexTradding = set(traddingDto);
         forexTradding.setRate(getNewRate(traddingDto).getSell());
-        if (forexTradding.getAmount() <= traddingRepository.getSum(forexTradding.getCustomer().getCif())){
-            ForexTradding forexTradding1 = get(forexTradding.getCustomer().getCif(), 0);
+        if (forexTradding.getAmount() <= traddingRepository.getSum(acc.getCustomer().getCif())){
+            ForexTradding forexTradding1 = get(acc.getCustomer().getCif(), 0);
             forexTradding.setDescription("S");
             if (forexTradding.getAmount() <= forexTradding1.getRestOfMoney()){
                 forexTradding.setProvitLost(forexTradding.getAmount() * (forexTradding.getRate() - forexTradding1.getRate()));
@@ -79,7 +79,7 @@ public class TraddingDaoImpl implements TraddingDao {
                 updateRestMoney(forexTradding1);
 
                 do {
-                    forexTradding1 = get(forexTradding.getCustomer().getCif(), 0);
+                    forexTradding1 = get(acc.getCustomer().getCif(), 0);
                     if (forexTradding1.getRestOfMoney() >= leftovers){
                         provLost += leftovers * (forexTradding.getRate() - forexTradding1.getRate());
                         forexTradding1.setRestOfMoney(forexTradding1.getRestOfMoney() - leftovers);
@@ -97,7 +97,6 @@ public class TraddingDaoImpl implements TraddingDao {
                 addToAccount(accNumb, traddingDto.getCcy(), traddingDto.getAmount());
                 return traddingRepository.save(forexTradding);
             }
-           // return forexTradding;
         }else {
             throw new BalanceNotEnoughException(31, "Your Balance not enough");
         }
@@ -176,9 +175,8 @@ public class TraddingDaoImpl implements TraddingDao {
 
     @Scheduled(cron = "0 1 1 * * ?")
     private void reportTradding() {
-        List<Customer> customers = new ArrayList<>();
         TraddingReport traddingReport = new TraddingReport();
-        customers = customerDao.findAll();
+        List<Customer> customers = customerDao.findAll();
         for (Customer cs : customers) {
             traddingReport.setCustomer(cs);
             traddingReport.setRate(traddingRepository.getSum(cs.getCif()));

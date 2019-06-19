@@ -37,7 +37,7 @@ public class ExceptionHandler {
 //        LOGGER.warn(e.getMesage());
 //        LOGGER.info(e.getMesage());
 //        LOGGER.debug(e.getMesage());
-        return new ResponseEntity<CommonResponse>(new CommonResponse(e.getCode(), e.getMessage()), HttpStatus.OK);
+        return new ResponseEntity<CommonResponse>(new CommonResponse(e.getCode(), e.getMesage()), HttpStatus.OK);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(value = WalletNotFoundException.class)
@@ -46,7 +46,7 @@ public class ExceptionHandler {
 //        LOGGER.warn(e.getMesage());
 //        LOGGER.info(e.getMesage());
 //        LOGGER.debug(e.getMesage());
-        return new ResponseEntity<CommonResponse>(new CommonResponse(e.getCode(), e.getMessage()), HttpStatus.OK);
+        return new ResponseEntity<CommonResponse>(new CommonResponse(e.getCode(), e.getMesage()), HttpStatus.OK);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(value = BalanceNotEnoughException.class)
@@ -55,6 +55,6 @@ public class ExceptionHandler {
 //        LOGGER.warn(e.getMesage());
 //        LOGGER.info(e.getMesage());
 //        LOGGER.debug(e.getMesage());
-        return new ResponseEntity<CommonResponse>(new CommonResponse(e.getCode(), e.getMessage()), HttpStatus.OK);
+        return new ResponseEntity<CommonResponse>(new CommonResponse(e.getCode(), e.getMesage()), HttpStatus.OK);
     }
 }
