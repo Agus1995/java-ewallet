@@ -19,6 +19,8 @@ public class CustomerController {
     @Autowired
     private CustomerDao customerDao;
 
+
+
     @PostMapping(path = CUSTOMER_LOGIN)
     public CommonResponse<Customer> login(@RequestBody CustomerDto dto) throws InvalidUsernameOrPasswordException {
         CommonResponse<Customer> response = new CommonResponse<>();
@@ -28,7 +30,7 @@ public class CustomerController {
     }
 
     @PostMapping(path = CUSTOMER_REGISTER)
-    public CommonResponse<Customer> Register(@RequestBody CustomerDto dto) throws InvalidUsernameOrPasswordException, UserAlreadyException {
+    public CommonResponse<Customer> Register(@RequestBody CustomerDto dto) throws UserAlreadyException {
         CommonResponse<Customer> response = new CommonResponse<>();
         Customer customer = customerDao.registerCustomer(dto);
         response.setData(customer);
