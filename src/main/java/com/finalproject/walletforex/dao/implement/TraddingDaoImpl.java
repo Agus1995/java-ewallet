@@ -42,7 +42,7 @@ public class TraddingDaoImpl implements TraddingDao {
         if (account.getCurencyType().equals(forexTradding.getCcy())){
             forexTradding.setRate((double) 1);
             if (account.getBalance() < forexTradding.getAmount())
-                throw new BalanceNotEnoughException(03, "Your Balance Not Enough");
+                throw new BalanceNotEnoughException(3, "Your Balance Not Enough");
             account.setBalance(account.getBalance() - forexTradding.getAmount());
             accountDao.updateBalance(account);
             return traddingRepository.save(forexTradding);
@@ -50,7 +50,7 @@ public class TraddingDaoImpl implements TraddingDao {
             forexTradding.setRate(getNewRate(traddingDto).getSell());
             double kurs = kursDao.buyMoney(account.getCurencyType(), forexTradding.getCcy(), forexTradding.getAmount());
             if (account.getBalance() < kurs)
-                throw new BalanceNotEnoughException(03, "Your Balance Not enough");
+                throw new BalanceNotEnoughException(3, "Your Balance Not enough");
             account.setBalance(account.getBalance() - kurs);
             accountDao.updateBalance(account);
             return traddingRepository.save(forexTradding);
