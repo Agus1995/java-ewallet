@@ -127,6 +127,7 @@ public class TraddingDaoImpl implements TraddingDao {
 
     private void updateRestMoney(ForexTradding forexTradding){
         ForexTradding forexTradding1 = traddingRepository.findById(forexTradding.getId()).orElse(null);
+        assert forexTradding1 != null;
         forexTradding1.setRestOfMoney(forexTradding.getRestOfMoney());
         traddingRepository.save(forexTradding1);
     }
