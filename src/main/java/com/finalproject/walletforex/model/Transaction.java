@@ -1,7 +1,9 @@
 package com.finalproject.walletforex.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Entity
@@ -10,6 +12,8 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @CreationTimestamp
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String accDebet;
     private String accCredit;
