@@ -120,6 +120,11 @@ public class TraddingDaoImpl implements TraddingDao {
         return traddingRepository.getSum(cif);
     }
 
+    @Override
+    public List<TraddingReport> getReport(String cif) {
+        return traddingReportRepository.findByCustomer_Cif(cif);
+    }
+
     private ForexTradding get(String cif){
         List<ForexTradding> forexTraddings = traddingRepository.findByCiff(cif);
         return forexTraddings.get(0);
