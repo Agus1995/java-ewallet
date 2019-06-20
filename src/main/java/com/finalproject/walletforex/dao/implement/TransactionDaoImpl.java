@@ -64,10 +64,10 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     @Override
-    public List<Transaction> getList(String accNumber) {
+    public List<Transaction> getList(String accNumber) throws AccountNotFoundException {
         List<Transaction> transaction = transactionRepository.findByAccCreditOrAccDebet(accNumber, accNumber);
         if (transaction.isEmpty()){
-            return null;
+            throw new AccountNotFoundException(2,"Account have't Transaction");
         }
         return transaction;
     }

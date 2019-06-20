@@ -46,7 +46,6 @@ public class WalletAccountDaoImpl implements WalletAccountDao {
 
     @Override
     public void unreg(int id) {
-        WalletAccount walletAccount = walletAccountRepository.findById(id).orElse(null);
         walletAccountRepository.deleteById(id);
     }
 
