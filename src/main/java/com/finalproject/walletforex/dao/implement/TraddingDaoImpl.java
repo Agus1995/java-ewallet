@@ -130,9 +130,6 @@ public class TraddingDaoImpl implements TraddingDao {
                 .map(ent -> {
                     ent.setRestOfMoney(forexTradding.getRestOfMoney());
                     return traddingRepository.save(ent);
-                }).orElseGet(()->{
-                    forexTradding.setId(forexTradding.getId());
-                    return traddingRepository.save(forexTradding);
                 });
     }
 
