@@ -5,6 +5,7 @@ import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.exception.BalanceNotEnoughException;
 import com.finalproject.walletforex.exception.WalletNotFoundException;
 import com.finalproject.walletforex.model.ForexTradding;
+import com.finalproject.walletforex.model.TraddingReport;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface TraddingDao {
     List<ForexTradding> getByCif(String cif) throws WalletNotFoundException;
     List<ForexTradding> getWithFif(String cif) throws AccountNotFoundException;
     double checksum(String cif);
+    List<TraddingReport> getReport(String cif);
 }

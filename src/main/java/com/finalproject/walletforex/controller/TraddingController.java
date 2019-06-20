@@ -6,6 +6,7 @@ import com.finalproject.walletforex.dto.TraddingDto;
 import com.finalproject.walletforex.exception.AccountNotFoundException;
 import com.finalproject.walletforex.exception.BalanceNotEnoughException;
 import com.finalproject.walletforex.model.ForexTradding;
+import com.finalproject.walletforex.model.TraddingReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,18 @@ public class TraddingController {
     private static final String BUY = "/buy"; //path login
     private static final String GET_SUM = "/tradding/{cif}";
     private static final String GET_REPORT = "/report/{cif}";
+    private static final String GET_OUTSTANDING_REPORT = "/outstanding/{cif}";
+
 
     @Autowired
     private TraddingDao traddingDao;
+
+    @GetMapping(path = GET_OUTSTANDING_REPORT)
+    public CommonResponse<List<TraddingReport>> getOutstanding(@PathVariable(value = "cif") String cif){
+        CommonResponse<List<TraddingReport>> response = new CommonResponse<>();
+        response.setData(traddingDao.getReport(cif));
+        return response;
+    }
 
     @GetMapping(path = GET_SUM)
     public CommonResponse<Double> getSum(@PathVariable(value = "cif") String cif){
