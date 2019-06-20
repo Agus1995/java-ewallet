@@ -63,7 +63,7 @@ public class TraddingDaoImpl implements TraddingDao {
         ForexTradding forexTradding = set(traddingDto);
         forexTradding.setRate(getNewRate(traddingDto).getSell());
         if (forexTradding.getAmount() <= traddingRepository.getSum(acc.getCustomer().getCif())){
-            ForexTradding forexTradding1 = get(acc.getCustomer().getCif(), 0);
+            ForexTradding forexTradding1 = get(acc.getCustomer().getCif());
             forexTradding.setDescription("S");
             if (forexTradding.getAmount() <= forexTradding1.getRestOfMoney()){
                 forexTradding.setProvitLost(forexTradding.getAmount() * (forexTradding.getRate() - forexTradding1.getRate()));
@@ -79,7 +79,7 @@ public class TraddingDaoImpl implements TraddingDao {
                 updateRestMoney(forexTradding1);
 
                 do {
-                    forexTradding1 = get(acc.getCustomer().getCif(), 0);
+                    forexTradding1 = get(acc.getCustomer().getCif());
                     if (forexTradding1.getRestOfMoney() >= leftovers){
                         provLost += leftovers * (forexTradding.getRate() - forexTradding1.getRate());
                         forexTradding1.setRestOfMoney(forexTradding1.getRestOfMoney() - leftovers);
@@ -103,8 +103,7 @@ public class TraddingDaoImpl implements TraddingDao {
     }
     @Override
     public List<ForexTradding> getByCif(String cif) throws WalletNotFoundException {
-        List<ForexTradding> forexTraddings = traddingRepository.findByCiff(cif);
-        return forexTraddings;
+        return traddingRepository.findByCiff(cif);
     }
 
     @Override
@@ -121,13 +120,13 @@ public class TraddingDaoImpl implements TraddingDao {
         return traddingRepository.getSum(cif);
     }
 
-    private ForexTradding get(String cif, int i){
+    private ForexTradding get(String cif){
         List<ForexTradding> forexTraddings = traddingRepository.findByCiff(cif);
         return forexTraddings.get(0);
     }
 
     private void updateRestMoney(ForexTradding forexTradding){
-        ForexTradding forexTradding1 = traddingRepository.findById(forexTradding.getId())
+        traddingRepository.findById(forexTradding.getId())
                 .map(ent -> {
                     ent.setRestOfMoney(forexTradding.getRestOfMoney());
                     return traddingRepository.save(ent);

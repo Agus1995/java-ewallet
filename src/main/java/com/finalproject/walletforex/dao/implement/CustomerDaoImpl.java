@@ -58,8 +58,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 
     private Customer findByUsername(String username){
-        Customer customer = customerRepository.findByUsername(username);
-        return customer;
+        return customerRepository.findByUsername(username);
     }
 
     private Customer setCustomer(CustomerDto dto){

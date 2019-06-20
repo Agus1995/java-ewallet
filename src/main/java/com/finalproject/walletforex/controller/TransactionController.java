@@ -29,7 +29,7 @@ public class TransactionController {
     }
 
     @GetMapping(path = LIST_TRANSACTION)
-    public CommonResponse<List<Transaction>> unreg(@PathVariable(value = "acc") String acc){
+    public CommonResponse<List<Transaction>> unreg(@PathVariable(value = "acc") String acc) throws AccountNotFoundException {
         CommonResponse<List<Transaction>> response = new CommonResponse<>();
         List<Transaction> transactions = transactionDao.getList(acc);
         response.setData(transactions);

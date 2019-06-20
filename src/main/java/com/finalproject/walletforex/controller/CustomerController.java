@@ -30,7 +30,7 @@ public class CustomerController {
     }
 
     @PostMapping(path = CUSTOMER_REGISTER)
-    public CommonResponse<Customer> Register(@RequestBody CustomerDto dto) throws UserAlreadyException {
+    public CommonResponse<Customer> register(@RequestBody CustomerDto dto) throws UserAlreadyException {
         CommonResponse<Customer> response = new CommonResponse<>();
         Customer customer = customerDao.registerCustomer(dto);
         response.setData(customer);

@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface TransactionDao {
     Transaction transaction(TransactionDto dto) throws AccountNotFoundException, BalanceNotEnoughException;
-    List<Transaction> getList(String accNumber);
+    List<Transaction> getList(String accNumber) throws AccountNotFoundException;
 }
