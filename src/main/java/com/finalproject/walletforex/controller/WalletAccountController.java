@@ -37,7 +37,7 @@ public class WalletAccountController {
     }
 
     @GetMapping(path = LIST_REGISTERED)
-    public CommonResponse<List<WalletAccount>> unreg(@PathVariable(value = "cif") String cif) throws AccountNotFoundException {
+    public CommonResponse<List<WalletAccount>> unreg(@PathVariable(value = "cif") String cif) throws AccountNotFoundException, InterruptedException {
         CommonResponse<List<WalletAccount>> response = new CommonResponse<>();
         List<WalletAccount> walletAccounts = walletAccountDao.getRegistered(cif);
         response.setData(walletAccounts);

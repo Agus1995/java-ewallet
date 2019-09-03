@@ -80,7 +80,7 @@ public class WalletAccountTest {
    }
 
     @Test
-    public void getRegisteredTest() throws AccountNotFoundException, UserAlreadyException {
+    public void getRegisteredTest() throws AccountNotFoundException, UserAlreadyException, InterruptedException {
         assertEquals(1, walletAccountDao.getRegistered("da-01").size());
     }
 

@@ -40,12 +40,12 @@ public class CustomerTest {
     }
 
     @Test
-    public void getByIdCustomer() throws AccountNotFoundException {
+    public void getByIdCustomer() throws AccountNotFoundException, InterruptedException {
         assertEquals("pay", customerDao.findById("pa-01").getFirstName());
     }
 
     @Test
-    public void getByIdCustomerNegative() throws AccountNotFoundException {
+    public void getByIdCustomerNegative() throws AccountNotFoundException, InterruptedException {
 		rule.expect(AccountNotFoundException.class);
         assertEquals("1", customerDao.findById("1").getCif());
     }

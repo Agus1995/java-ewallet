@@ -29,7 +29,7 @@ public class WalletAccountDaoImpl implements WalletAccountDao {
     }
 
     @Override
-    public List<WalletAccount> getRegistered(String cif) throws AccountNotFoundException {
+    public List<WalletAccount> getRegistered(String cif) throws AccountNotFoundException, InterruptedException {
         List<WalletAccount> walletAccounts = new ArrayList<>();
         Customer customer = customerDao.findById(cif);
         walletAccounts = walletAccountRepository.findByAccountCustomer(customer);

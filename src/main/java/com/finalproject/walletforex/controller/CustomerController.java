@@ -38,7 +38,7 @@ public class CustomerController {
     }
 
     @GetMapping(path = CUSTOMER_PROFILE)
-    public CommonResponse<Customer> profile(@PathVariable(value = "id") String cif) throws AccountNotFoundException {
+    public CommonResponse<Customer> profile(@PathVariable(value = "id") String cif) throws AccountNotFoundException, InterruptedException {
         CommonResponse<Customer> response = new CommonResponse<>();
         Customer customer = customerDao.findById(cif);
         response.setData(customer);

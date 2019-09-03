@@ -11,6 +11,6 @@ import java.util.List;
 public interface CustomerDao {
     Customer registerCustomer(CustomerDto dto) throws UserAlreadyException;
     Customer login(CustomerDto dto) throws InvalidUsernameOrPasswordException;
-    Customer findById(String id) throws AccountNotFoundException;
+    Customer findById(String id) throws AccountNotFoundException, InterruptedException;
     List<Customer> findAll();
 }

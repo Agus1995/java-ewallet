@@ -8,10 +8,15 @@ import com.finalproject.walletforex.exception.UserAlreadyException;
 import com.finalproject.walletforex.model.Customer;
 import com.finalproject.walletforex.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Configuration
+@EnableAsync
 @Service
 public class CustomerDaoImpl implements CustomerDao {
 
@@ -33,22 +38,28 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public Customer login(CustomerDto dto) throws InvalidUsernameOrPasswordException {
         Customer customer = findByUsername(dto.getUsername());
-        if (customer == null){
-            throw new InvalidUsernameOrPasswordException(03, "Invalid Username or Password");
-        }else if (customer.getPassword().equals(dto.getPassword())){
-            return customer;
-        }else {
-            throw new InvalidUsernameOrPasswordException(03, "Invalid Username or Password");
-        }
+//        if (customer == null){
+//            throw new InvalidUsernameOrPasswordException(03, "Invalid Username or Password");
+//        }else if (customer.getPassword().equals(dto.getPassword())){
+//            return customer;
+//        }else {
+//            throw new InvalidUsernameOrPasswordException(03, "Invalid Username or Password");
+//        }
+        return customer;
     }
 
+
     @Override
-    public Customer findById(String id) throws AccountNotFoundException {
-        Customer customer = customerRepository.findById(id).orElse(null);
-        if (customer == null){
-            throw new AccountNotFoundException(2, "Customer Not Found");
-        }
-        return customer;
+    public Customer findById(String id) throws AccountNotFoundException, InterruptedException {
+        Customer customer = new Customer();
+        customer.setCif("50");
+        customer = customerRepository.findById(id).orElse(null);
+
+//        if (customer == null){
+//            throw new AccountNotFoundException(2, "Customer Not Found");
+//        }
+       Thread.sleep(2000);
+       return customer;
     }
 
     @Override
